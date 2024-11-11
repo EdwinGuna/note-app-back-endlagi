@@ -1,4 +1,4 @@
-require('dotenv').config({ path: '.prod.env' });
+require('dotenv').config();
 
 const Hapi = require('@hapi/hapi');
 const notes = require('./api/notes');
