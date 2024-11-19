@@ -1,4 +1,5 @@
 const UsersValidator = require('../../validator/users');
+const ClientError = require('../../exceptions/ClientError');
 
 class UsersHandler {
     constructor(service, validator) {
@@ -7,6 +8,7 @@ class UsersHandler {
 
         this.postUserHandler = this.postUserHandler.bind(this);
         this.getUserByIdHandler = this.getUserByIdHandler.bind(this);
+        this.getUsersByUsernameHandler = this.getUsersByUsernameHandler.bind(this);
     }
 
     async postUserHandler(request, h) {
@@ -37,6 +39,19 @@ class UsersHandler {
             },
         };
     }
+
+    async getUsersByUsernameHandler(request, h) {
+        const { username = '' } = request.query;
+        const users = await this._service.getUsersByUsername(username);
+        
+        return {
+          status: 'success',
+          data: {
+            users,
+          },
+        };
+       
+    }    
 }
 
 module.exports = UsersHandler;
